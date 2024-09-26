@@ -21,8 +21,8 @@ class PostBase(BaseModel):
 class Post(PostBase):
     id: int
     user_id: int
-    tags: List["Tag"] | None = None
-    comments: List["Comment"] | None = None
+    tags: List["Tag"] = []
+    comments: List["Comment"] = []
     user: Optional["UserBase"] = None
 
 

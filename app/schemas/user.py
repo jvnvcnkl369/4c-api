@@ -9,8 +9,8 @@ class UserBase(BaseModel):
 
 class User(UserBase):
     id: int
-    posts: List["Post"] | None = None
-    comments: List["Comment"] | None = None
+    posts: List["Post"] = []
+    comments: List["Comment"] = []
 
     class Config:
         from_attributes = True

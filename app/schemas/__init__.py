@@ -1,5 +1,5 @@
 from .user import User, UserBase
-from .post import Post, PostBase 
+from .post import Post, PostBase
 from .comment import Comment, CommentBase
 from .tag import TagBase
 
