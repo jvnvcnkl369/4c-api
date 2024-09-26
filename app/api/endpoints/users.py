@@ -10,11 +10,11 @@ router = APIRouter()
 
 
 @router.get(
-    "/api/users/{user_id}", response_model=None, response_model_exclude_unset=True
+    "/api/users/{user_id}", response_model=User, response_model_exclude_defaults=True
 )
 def get_user(
     user_id: int, include: Optional[str] = Query(None), db: Session = Depends(get_db)
-) -> User:
+):
 
     query = db.query(models.User).filter(models.User.id == user_id)
     query = apply_includes(query, models.User, include)

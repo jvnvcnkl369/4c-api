@@ -17,8 +17,8 @@ class User(Base):
     username = Column(String, unique=True)
     email = Column(String, unique=True)
 
-    posts = relationship("Post", back_populates="user", lazy='noload')
-    comments = relationship("Comment", back_populates="user", lazy='noload')
+    posts = relationship("Post", back_populates="user", lazy="noload")
+    comments = relationship("Comment", back_populates="user", lazy="noload")
 
 
 class Post(Base):
@@ -30,9 +30,11 @@ class Post(Base):
     status = Column(String)
     user_id = Column(Integer, ForeignKey("users.id"))
 
-    user = relationship("User", back_populates="posts", lazy='noload')
-    comments = relationship("Comment", back_populates="post", lazy='noload')
-    tags = relationship("Tag", secondary=post_tag, back_populates="posts", lazy='noload')
+    user = relationship("User", back_populates="posts", lazy="noload")
+    comments = relationship("Comment", back_populates="post", lazy="noload")
+    tags = relationship(
+        "Tag", secondary=post_tag, back_populates="posts", lazy="noload"
+    )
 
 
 class Comment(Base):
@@ -43,8 +45,8 @@ class Comment(Base):
     post_id = Column(Integer, ForeignKey("posts.id"))
     user_id = Column(Integer, ForeignKey("users.id"))
 
-    post = relationship("Post", back_populates="comments", lazy='noload')
-    user = relationship("User", back_populates="comments", lazy='noload')
+    post = relationship("Post", back_populates="comments", lazy="noload")
+    user = relationship("User", back_populates="comments", lazy="noload")
 
 
 class Tag(Base):
@@ -53,4 +55,6 @@ class Tag(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String, unique=True)
 
-    posts = relationship("Post", secondary=post_tag, back_populates="tags", lazy='noload')
+    posts = relationship(
+        "Post", secondary=post_tag, back_populates="tags", lazy="noload"
+    )
