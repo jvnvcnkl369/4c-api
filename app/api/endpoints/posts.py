@@ -12,7 +12,10 @@ router = APIRouter()
 
 
 @router.get(
-    "/api/posts", response_model=List[Post], response_model_exclude_defaults=True
+    "/api/posts",
+    response_model=List[Post],
+    response_model_exclude_defaults=True,
+    status_code=200,
 )
 def get_posts(
     status: Optional[str] = None,
@@ -25,12 +28,15 @@ def get_posts(
         query = query.filter(models.Post.status == status)
 
     query = apply_includes(query, models.Post, include)
-    
+
     return query.all()
 
 
 @router.get(
-    "/api/posts/{post_id}", response_model=Post, response_model_exclude_defaults=True
+    "/api/posts/{post_id}",
+    response_model=Post,
+    response_model_exclude_defaults=True,
+    status_code=200,
 )
 def get_post(
     post_id: int, include: Optional[str] = Query(None), db: Session = Depends(get_db)

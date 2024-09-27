@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class CommentBase(BaseModel):
@@ -6,9 +6,8 @@ class CommentBase(BaseModel):
 
 
 class Comment(CommentBase):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     post_id: int
     user_id: int
-
-    class Config:
-        from_attributes = True

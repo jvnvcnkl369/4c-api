@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 from enum import Enum
 from typing import List, Optional
 
@@ -10,12 +10,11 @@ class PostStatus(str, Enum):
 
 
 class PostBase(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
     title: str
     content: str
     status: str
-
-    class Config:
-        from_attributes = True
 
 
 class Post(PostBase):

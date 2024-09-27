@@ -10,7 +10,10 @@ router = APIRouter()
 
 
 @router.get(
-    "/api/users/{user_id}", response_model=User, response_model_exclude_defaults=True
+    "/api/users/{user_id}",
+    response_model=User,
+    response_model_exclude_defaults=True,
+    status_code=200,
 )
 def get_user(
     user_id: int, include: Optional[str] = Query(None), db: Session = Depends(get_db)

@@ -1,5 +1,5 @@
 from typing import List
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, ConfigDict, EmailStr
 
 
 class UserBase(BaseModel):
@@ -8,12 +8,11 @@ class UserBase(BaseModel):
 
 
 class User(UserBase):
+    model_config = ConfigDict(from_attributes=True)
+
     id: int
     posts: List["Post"] = []
     comments: List["Comment"] = []
-
-    class Config:
-        from_attributes = True
 
 
 from .post import Post
