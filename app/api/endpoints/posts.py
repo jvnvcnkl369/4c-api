@@ -24,7 +24,7 @@ def get_posts(
 ):
     query = db.query(models.Post)
 
-    if status and status in PostStatus:
+    if status and status in [enum.value for enum in PostStatus]:
         query = query.filter(models.Post.status == status)
 
     query = apply_includes(query, models.Post, include)
