@@ -1,13 +1,11 @@
 import pytest
 from sqlalchemy import inspect
 from sqlalchemy.orm import Session
-from app.database import get_db, Base, engine
+from app.database import Base, engine
 
 
-def test_get_db():
-    db = next(get_db())
-    assert isinstance(db, Session)
-    db.close()
+def test_get_db(db_session):
+    assert isinstance(db_session, Session)
 
 
 def test_create_tables():
@@ -19,12 +17,5 @@ def test_create_tables():
     assert inspector.has_table("tags")
 
 
-@pytest.fixture(scope="function")
-def db():
-    Base.metadata.create_all(bind=engine)
-    yield from get_db()
-    Base.metadata.drop_all(bind=engine)
-
-
-def test_db_session(db):
-    assert db.is_active
+def test_db_session(db_session):
+    assert db_session.is_active
